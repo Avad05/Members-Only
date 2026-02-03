@@ -12,7 +12,15 @@ async function showLOmessages() {
     await pool.query('SELECT * FROM messageinfo');
 }
 
+async function userMessages(user, message) {
+     await pool.query('INSERT INTO messageinfo (mess_id, message) VALUES ($1, $2)',
+        [user, message]
+     );
+}
+
 module.exports = {
     getEverything,
     addUserToDb,
+    showLOmessages,
+    userMessages
 }

@@ -38,11 +38,23 @@ async function getMessageForm(req, res) {
     res.render("messageForm");    
 }
 
+async function submitMessage(req, res) {
+    try{
+    const{message} = req.body;
+    const authorId = req.user.id;
+    await db.userMessages(authorId, message);
+    res.redirect("/login");
+    }catch(err){
+        res.status(400).send(`Error hereeee ${err}`);
+    }
+}
+
 module.exports = {
     getHome,
     getSignUpForm,
     getLogin,
     logout,
     enterUserIntoDb,
-    getMessageForm
+    getMessageForm,
+    submitMessage
 }

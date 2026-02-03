@@ -14,7 +14,7 @@ router.post("/login", passport.authenticate("local", {
     failureRedirect: "/login",
   }));
 router.get("/message", ensureAuthenticated, controller.getMessageForm);
-
+router.post("/message", controller.submitMessage);
 
 
 
