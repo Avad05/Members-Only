@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+    <h1>Join the Club</h1>
+</header>
+
+<main>
+    <p>Enter the secret passcode to see authors and post messages!</p>
+
+    <% if (locals.error_msg) { %>
+        <p style="color: red;"><%= error_msg %></p>
+    <% } %>
+
+    <form action="/join" method="POST">
+        <label for="passcode">Secret Passcode:</label>
+        <input type="password" name="passcode" id="passcode" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <a href="/">Back to Home</a>
+</main>
+</body>
+</html>

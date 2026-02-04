@@ -1,15 +1,37 @@
 const bcrypt = require("bcrypt")
 const db = require('../db/query');
+const { name } = require("ejs");
+async function getHome(req, res) {
+    try {
+        const messages = await db.detailedMessage();
 
-async function getHome(req, res){
-    res.render("home");
+        // Use map to process every message in the list
+        const processedMessages = messages.map(msg => {
+            const originalName = msg.name || "Anonymous";
+            
+            // Apply masking logic: A****t
+            const maskedName = originalName.length < 2 
+                ? originalName 
+                : originalName[0] + "*".repeat(originalName.length - 2) + originalName.slice(-1);
+
+            // Return a new object: if logged in, show real name; if not, show masked
+            return {
+                ...msg,
+                displayName: req.isAuthenticated() ? originalName : maskedName
+            };
+        });
+
+        res.render("home", { messages: processedMessages, user: req.user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error loading home page");
+    }
 }
+
 async function getSignUpForm(req, res) {
     res.render("signUp");
 }
-async function getLogin(req, res) {
-    res.render("login", {user: req.user});
-}
+
 async function logout(req, res, next) {
     req.logout((err) =>{
         if(err) {
@@ -34,8 +56,13 @@ async function enterUserIntoDb(req, res) {
       res.status(401).send(`Error is this ${err}`);
    }
 }
+
 async function getMessageForm(req, res) {
-    res.render("messageForm");    
+    if(req.user.ismember){
+    res.render("messageForm");
+    }else{
+        res.redirect("/join")
+    }    
 }
 
 async function submitMessage(req, res) {
@@ -49,12 +76,48 @@ async function submitMessage(req, res) {
     }
 }
 
+async function LogInDashboard(req, res, next){
+    try{
+       const user = req.user;
+       const message = await db.detailedMessage();
+       res.render("login", {message, user});
+       console.log(message);
+    }catch(err){
+       res.status(402).send(`Error: ${err}`);
+    }
+    next();
+}
+ async function getJoinForm(req, res) {
+   res.render("join-club");
+ }
+
+async function getjoinClub(req, res) {
+    const {passcode} = req.body;
+    const Secret = "tsoding";
+
+    if(passcode === Secret){
+        try{
+       db.club(req.user.id);
+       req.user.ismember = true;
+       req.flash("success_msg", "Correct! You are now a member.");
+      res.redirect("/message");
+    }catch(err){
+        console.log(`Error: ${err}`);
+    }
+}else {
+    req.flash("error_msg", "Incorrect passcode. Try again!");
+    res.redirect("/join");
+  }
+}
+
 module.exports = {
     getHome,
     getSignUpForm,
-    getLogin,
     logout,
     enterUserIntoDb,
     getMessageForm,
-    submitMessage
+    submitMessage,
+    LogInDashboard,
+    getJoinForm,
+    getjoinClub
 }

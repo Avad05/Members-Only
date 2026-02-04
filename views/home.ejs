@@ -10,6 +10,15 @@
     <header>Members Only</header>
     <a href="/login"><button>Login</button></a>
     <a href="/sign-up"><button>Sign-Up</button></a>
-    <p>This will be the HomePage content right here do whatever you want </p>
+    <ol>
+    <% messages.forEach(element => { %>
+        <li>
+            <strong><%= element.displayName %></strong>: 
+            <%= element.message %> 
+            <br>
+            <small><%= element.created_at.toLocaleString() %></small>
+        </li>
+    <% }) %>
+</ol>
 </body>
 </html>

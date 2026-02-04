@@ -18,9 +18,20 @@ async function userMessages(user, message) {
      );
 }
 
+async function detailedMessage() {
+    const messages = await pool.query('SELECT userinfo.name, messageinfo.message, messageinfo.created_at FROM userinfo INNER JOIN messageinfo ON messageinfo.mess_id = userinfo.id ORDER BY messageinfo.created_at DESC');
+    return messages.rows;
+}
+
+async function club(userid) {
+    await pool.query('UPDATE userinfo SET ismember = true WHERE id = $1', [userid]);
+}
+
 module.exports = {
     getEverything,
     addUserToDb,
     showLOmessages,
-    userMessages
+    userMessages,
+    detailedMessage,
+    club
 }

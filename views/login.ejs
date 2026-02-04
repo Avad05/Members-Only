@@ -7,12 +7,28 @@
 </head>
 <body>
   
-    <% if (locals.user) { %>
+    <% if (locals.user){ %>
         <h1>Welcome <%= user.username %> </h1>
-        <a href="/message"><button>Add Message</button></a>
+        <% if (user.ismember) { %>
+         <a href="/message"><button>Add Message</button></a>
+        <% } else{%>
+           <a href="/join">
+            <button style="background-color: #ffd700;">Join Club to Post</button>
+        </a>
+        <% } %> 
+   
+        <% if (locals.message) { %>
+              <% message.forEach(element => { %>
+                    <p>Message: <%= element.message %> </p>
+                    <p>Name: <%= element.name %> </p>
+                    <p>Created_at: <%= element.created_at %> </p>
+              <% }) %>
+        <% } else{%>
+            <h1>No messages Yet</h1>
+        <% } %> 
         <a href="/logout"><button>Logout</button></a>
     <% } else{ %>
-            <h1>please log in</h1>
+<h1>please log in</h1>
 <form action="/login" method="POST">
   <label for="username">Username</label>
   <input id="username" name="username" placeholder="username" type="text" />
