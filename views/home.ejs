@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members Only</title>
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
-    
-    <header>Members Only</header>
-    <a href="/login"><button>Login</button></a>
-    <a href="/sign-up"><button>Sign-Up</button></a>
+<body class="bg-[#030712]">
+    <div class="flex align-middle justify-between m-3 border-b border-amber-50 p-2">
+    <div class="flex">
+    <img src="/uploads/image.png" class="size-12 shrink-0">
+    <header class="text-white underline text-4xl">Members Only</header>
+    </div>
+    <div class="flex gap-5">
+    <a href="/login"><button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Login</button></a>
+    <a href="/sign-up"><button class="text-[#432e89] bg-white text-2xl p-2 rounded-md">Sign-Up</button></a>
+    </div>
+    </div>
     <ol>
     <% messages.forEach(element => { %>
         <li>
-            <strong><%= element.displayName %></strong>: 
-            <%= element.message %> 
+            <strong class="text-white"><%= element.displayName %></strong>
             <br>
-            <small><%= element.created_at.toLocaleString() %></small>
+           <strong class="text-white"><%= element.message %></strong> 
+            <br>
+            <small class="text-white"><%= element.created_at.toLocaleString() %></small>
+            <br>
         </li>
     <% }) %>
 </ol>

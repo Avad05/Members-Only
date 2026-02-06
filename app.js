@@ -19,6 +19,7 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(flash());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 app.use("/", router);
 //connect-flash library used here
 app.use((req, res, next) => {
