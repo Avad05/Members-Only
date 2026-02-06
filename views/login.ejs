@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
+<body class="bg-[#030712] text-white p-2">
   
+     <div class="flex align-middle justify-between m-3 border-b border-amber-50 p-2">
+    <div class="flex">
+    <img src="/uploads/image.png" class="size-12 shrink-0">
+    <header class="text-white underline text-4xl">Members Only</header>
+    </div>
+    <div class="flex gap-5">
+    <a href="/login"><button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Login</button></a>
+    <a href="/sign-up"><button class="text-[#432e89] bg-white text-2xl p-2 rounded-md">Sign-Up</button></a>
+    </div>
+    </div>
+      <div class=" flex justify-center">
     <% if (locals.user){ %>
-        <h1>Welcome <%= user.username %> </h1>
+        <h1 class="text-amber-200">Welcome <%= user.username %> </h1>
         <% if (user.ismember) { %>
          <a href="/message"><button>Add Message</button></a>
         <% } else{%>
@@ -28,17 +40,21 @@
         <% } %> 
         <a href="/logout"><button>Logout</button></a>
     <% } else{ %>
-<h1>please log in</h1>
+<div class="flex flex-col gap-5 h-80 w-100 place-content-evenly p-3 border-4 border-double rounded-2xl m-5">        
+<h1 class="text-5xl place-self-center "> Welcome Back</h1>
 <form action="/login" method="POST">
-  <label for="username">Username</label>
-  <input id="username" name="username" placeholder="username" type="text" />
-  <label for="password">Password</label>
-  <input id="password" name="password" type="password" />
-  <button type="submit">Log In</button>
+    <div class="flex flex-col gap-2">
+  <label for="username" class="text-xl">Username</label>
+  <input id="username" name="username" placeholder="username" type="text" class="border border-white rounded-md h-8 p-2"/>
+  <label for="password" class="text-xl">Password</label>
+  <input id="password" name="password" type="password" class="border border-white rounded-md h-8 p-2"/>
+  <button type="submit" class="bg-[#432e89] text-white text-base p-2 rounded-md">Log In</button>
+</div>
 </form>
+</div>
     <%} %>
      
 
-
+      </div>
 </body>
 </html>
