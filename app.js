@@ -15,7 +15,15 @@ app.set("views", path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
+app.use(session({ 
+  secret: process.env.SESSION_SECRET || "cats", // Uses the secure Render secret or 'cats' locally
+  resave: false, 
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day session persistence
+    secure: process.env.NODE_ENV === "production" // Only sends cookies over HTTPS in production
+  }
+}));
 app.use(flash());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));

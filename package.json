@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  
+    "scripts": {
+  "build": "npx @tailwindcss/cli -i ./public/assets/input.css -o ./public/assets/style.css && npm install",
+  "start": "node app.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
