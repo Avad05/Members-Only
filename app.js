@@ -28,5 +28,5 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error') || "";
   next();
 });
-
-app.listen(8000, console.log('running on port 8000'))
+const PORT = process.env.PORT || 8000
+app.listen(PORT, console.log('running on port 8000'))
