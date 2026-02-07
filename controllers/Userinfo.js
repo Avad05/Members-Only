@@ -102,6 +102,8 @@ async function LogInDashboard(req, res, next){
    res.render("join-club");
  }
 
+
+
 async function getjoinClub(req, res) {
     const {passcode} = req.body;
     const Secret = "26";
@@ -111,7 +113,7 @@ async function getjoinClub(req, res) {
        db.club(req.user.id);
        req.user.ismember = true;
        req.flash("success_msg", "Correct! You are now a member.");
-      res.redirect("/message");
+      res.redirect("/");
     }catch(err){
         console.log(`Error: ${err}`);
     }
@@ -120,7 +122,6 @@ async function getjoinClub(req, res) {
     res.redirect("/join");
   }
 }
-
 module.exports = {
     getHome,
     getSignUpForm,
@@ -130,5 +131,6 @@ module.exports = {
     submitMessage,
     LogInDashboard,
     getJoinForm,
-    getjoinClub
+    getjoinClub,
+    
 }
