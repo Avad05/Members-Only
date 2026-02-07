@@ -26,8 +26,8 @@
             <strong class="text-white font-extrabold text-sm"><%= element.displayName %></strong>
             <br>
            <p class="text-white text-lg"><%= element.message %></p> 
-            <br>
-            <small class="text-white text-xs"><%= element.created_at.toLocaleString() %></small>
+            
+            <small class="text-white text-xs">-<%= element.relativeTime.toLocaleString() %></small>
             <br>
             </div>
         </div>

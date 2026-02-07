@@ -4,16 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign_up</title>
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
+<body class="bg-[#030712] text-white">
+     <div class="flex align-middle justify-between m-3 border-b border-amber-50 p-2">
+    <div class="flex">
+    <img src="/uploads/image.png" class="size-12 shrink-0">
+    <header class="text-white underline text-4xl">Members Only</header>
+    </div>
+    <div class="flex gap-5">
+    <a href="/login"><button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Login</button></a>
+    <a href="/sign-up"><button class="text-[#432e89] bg-white text-2xl p-2 rounded-md">Sign-Up</button></a>
+    </div>
+    </div>
+    <div class="flex justify-center">
+    <div class="flex flex-col place-content-center m-5 p-5 gap-4 border-3 border-white w-100 rounded-xl">
+    <h1 class="text-5xl self-center">Register</h1>
     <form method="post" action="/sign-up">
-        <label for="name">Enter name</label>
-         <input type="text" name="name" placeholder="Enter fullname" id="name "><br/>
-         <label for="username">username</label>
-         <input type="text" name="username" id="username"><br/>
-         <label for="password">Password</label>
-         <input type="password" name="password" id="password">
-         <button type="submit">Submit</button>
-    </form>
+        <div class="flex flex-col gap-2">
+        <label for="name" class="text-xl">Enter name</label>
+         <input type="text" name="name" required placeholder="Enter fullname" id="name" class="border border-white rounded-md h-8 p-2">
+         <label for="username" class="text-xl">username</label>
+         <input type="email" name="username" placeholder="@xyz.com" required id="username" class="border border-white rounded-md h-8 p-2">
+         <label for="password" class="text-xl">Password</label>
+         <input type="password" name="password" required id="password" class="border border-white rounded-md h-8 p-2">
+         <button type="submit" class="text-[#432e89] bg-white text-xl p-2 rounded-md">Submit</button>
+         </div>
+    </form>    
+    </div>
+    </div>
 </body>
 </html>

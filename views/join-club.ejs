@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
+<body class="bg-[#030712] text-white">
+    <div class="flex flex-col place-items-center m-5 p-4 font-mono gap-5">
     <header>
-    <h1>Join the Club</h1>
+    <h1 class="text-5xl underline">Join the Club</h1>
 </header>
 
-<main>
+<main class="flex flex-col place-items-center gap-4">
     <p>Enter the secret passcode to see authors and post messages!</p>
+    <p>The secret password is :</p>
+    <img src="/uploads/sum.png" class="">
 
     <% if (locals.error_msg) { %>
         <p style="color: red;"><%= error_msg %></p>
     <% } %>
 
-    <form action="/join" method="POST">
+    <form action="/join" method="POST" class="flex flex-col place-items-center gap-4 m-5" onsubmit="">
         <label for="passcode">Secret Passcode:</label>
-        <input type="password" name="passcode" id="passcode" required>
-        <button type="submit">Submit</button>
+        <input type="password" name="passcode" id="passcode" required class="border border-white rounded-md h-8 p-2">
+        <button type="submit" class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Submit</button>
     </form>
     
-    <a href="/">Back to Home</a>
+    <a href="/login"><button class="text-[#432e89] bg-white text-2xl p-2 rounded-md">Back to Dashboard</button></a>
 </main>
+</div>
 </body>
 </html>

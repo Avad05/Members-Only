@@ -4,14 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
-
-    <h1>Enter your message</h1>
-    <form method="post" action="/message">
-    <label for="text">Enter ur text</label>
-    <textarea id="text" name="message"></textarea>
-    <form action="/message" method="post"><button type="submit">Submit</button></form>    
-    </form> 
+<body class="bg-[#030712] text-white">
+    <div class="flex justify-between m-2 p-4 border-b border-amber-50">
+       <div class="flex">
+          <img src="/uploads/image.png" class="size-12 shrink-0">
+          <header class="text-white underline text-4xl">Members Only</header>
+        </div>
+        <a href="/logout"><button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Logout</button></a>
+    </div>
+    <div class="flex flex-col gap-10 m-5">
+    <h1 class="text-4xl self-center font-mono">Enter your message</h1>
+        <form method="post" action="/message" class="flex flex-col place-items-center gap-3">
+          <label for="text" class="text-2xl">Enter ur text</label>
+          <textarea id="text" name="message" class="border border-white w-100 h-50 p-3 rounded-xl"></textarea><br/>
+          <form action="/message" method="post"><button type="submit" class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Submit</button></form>    
+        </form> 
+   
+    </div>
 </body>
 </html>

@@ -6,9 +6,46 @@
     <title>Document</title>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body class="bg-[#030712] text-white p-2">
-  
-     <div class="flex align-middle justify-between m-3 border-b border-amber-50 p-2">
+<body class="bg-[#030712] text-white ">
+    <% if (locals.user){ %> 
+          <div class="flex justify-between m-2 p-4 border-b border-amber-50">
+    <div class="flex">
+    <img src="/uploads/image.png" class="size-12 shrink-0">
+    <header class="text-white underline text-4xl">Members Only</header>
+    </div>
+    <a href="/logout"><button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Logout</button></a>
+    </div>
+      <div class="flex flex-col m-2 p-2"> 
+        <div class="flex justify-between p-4">    
+        <h1 class="text-white text-4xl font-mono">Welcome <%= user.username %> </h1>
+        <% if (user.ismember) { %>
+         <a href="/message"><button class="text-[#432e89] bg-white text-xl p-2 rounded-md">Add Message</button></a>
+        <% } else{%>
+           <a href="/join">
+            <button class="bg-[#432e89] text-white text-2xl p-2 rounded-md">Join Club to Post</button>
+        </a>      
+        <% } %> 
+        </div>
+        <% if (locals.message) { %>
+        <div class="flex flex-col justify-items-center place-items-center gap-4 m-5">
+              <% message.forEach(element => { %>
+                <div class="flex border border-white rounded-md gap-3 p-4 w-xl h-auto">
+                   <img src="/uploads/message.png" class="size-8 shrink-0">
+                   <div>
+                    OP:<strong class="text-white font-extrabold text-sm"> <%= element.name %> </strong><br/>
+                    <p class="text-white text-lg">Message: <%= element.message %> </p>
+                    <small class="text-white text-xs">-<%= element.relativeTime.toLocaleString() %> </small><br/>
+                    </div>
+                </div>    
+              <% }) %>
+        <% } else{%>
+            <h1>No messages Yet</h1>
+        <% } %> 
+        </div>
+      </div>
+    <% } else{ %>
+      
+      <div class="flex align-middle justify-between m-3 border-b border-amber-50 p-2">
     <div class="flex">
     <img src="/uploads/image.png" class="size-12 shrink-0">
     <header class="text-white underline text-4xl">Members Only</header>
@@ -18,43 +55,21 @@
     <a href="/sign-up"><button class="text-[#432e89] bg-white text-2xl p-2 rounded-md">Sign-Up</button></a>
     </div>
     </div>
-      <div class=" flex justify-center">
-    <% if (locals.user){ %>
-        <h1 class="text-amber-200">Welcome <%= user.username %> </h1>
-        <% if (user.ismember) { %>
-         <a href="/message"><button>Add Message</button></a>
-        <% } else{%>
-           <a href="/join">
-            <button style="background-color: #ffd700;">Join Club to Post</button>
-        </a>
-        <% } %> 
-   
-        <% if (locals.message) { %>
-              <% message.forEach(element => { %>
-                    <p>Message: <%= element.message %> </p>
-                    <p>Name: <%= element.name %> </p>
-                    <p>Created_at: <%= element.created_at %> </p>
-              <% }) %>
-        <% } else{%>
-            <h1>No messages Yet</h1>
-        <% } %> 
-        <a href="/logout"><button>Logout</button></a>
-    <% } else{ %>
-<div class="flex flex-col gap-5 h-80 w-100 place-content-evenly p-3 border-4 border-double rounded-2xl m-5">        
-<h1 class="text-5xl place-self-center "> Welcome Back</h1>
+<div class="flex justify-center">
+    <div class="flex flex-col gap-5 h-80 w-100 place-content-evenly p-3 border-2 rounded-2xl m-5">        
+  <h1 class="text-5xl place-self-center "> Welcome Back</h1>
 <form action="/login" method="POST">
     <div class="flex flex-col gap-2">
-  <label for="username" class="text-xl">Username</label>
-  <input id="username" name="username" placeholder="username" type="text" class="border border-white rounded-md h-8 p-2"/>
-  <label for="password" class="text-xl">Password</label>
-  <input id="password" name="password" type="password" class="border border-white rounded-md h-8 p-2"/>
-  <button type="submit" class="bg-[#432e89] text-white text-base p-2 rounded-md">Log In</button>
+  <label for="username" class="text-xl" aria-placeholder="@xyz.com">Username</label>
+  <input required id="username" name="username" placeholder="@xyz.com" type="text" class="border border-white rounded-md h-8 p-2"/>
+  <label for="password" class="text-xl" aria-placeholder="password">Password</label>
+  <input required id="password" name="password" type="password" class="border border-white rounded-md h-8 p-2"/>
+  <button type="submit" class="bg-[#432e89] text-white text-base p-2 rounded-md" aria-placeholder="submit">Log In</button>
 </div>
 </form>
 </div>
+</div>
     <%} %>
      
-
-      </div>
 </body>
 </html>

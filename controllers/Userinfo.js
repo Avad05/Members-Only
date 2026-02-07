@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt")
 const db = require('../db/query');
 const { name } = require("ejs");
+const { formatDistanceToNow } = require('date-fns');
+const flash = require('connect-flash');
 async function getHome(req, res) {
     try {
         const messages = await db.detailedMessage();
@@ -17,7 +19,8 @@ async function getHome(req, res) {
             // Return a new object: if logged in, show real name; if not, show masked
             return {
                 ...msg,
-                displayName: req.isAuthenticated() ? originalName : maskedName
+                displayName: req.isAuthenticated() ? originalName : maskedName,
+                relativeTime: formatDistanceToNow(new Date(msg.created_at), { addSuffix: true })
             };
         });
 
@@ -51,7 +54,7 @@ async function enterUserIntoDb(req, res) {
         return res.status(400).send("Enter complete Details");
     }
     await db.addUserToDb(name, username, hashedPassword, member, admin);
-    res.redirect("/");
+    res.redirect("/login");
    }catch(err){
       res.status(401).send(`Error is this ${err}`);
    }
@@ -80,8 +83,16 @@ async function LogInDashboard(req, res, next){
     try{
        const user = req.user;
        const message = await db.detailedMessage();
-       res.render("login", {message, user});
-       console.log(message);
+       const processedMessages = message.map(msg =>{
+        const origialName = msg.name;
+        return{
+            ...msg,
+            displayName: origialName,
+            relativeTime: formatDistanceToNow(new Date(msg.created_at), { addSuffix: true })
+        }
+       })
+       res.render("login", {message:processedMessages, user});
+       //console.log(message);
     }catch(err){
        res.status(402).send(`Error: ${err}`);
     }
@@ -93,7 +104,7 @@ async function LogInDashboard(req, res, next){
 
 async function getjoinClub(req, res) {
     const {passcode} = req.body;
-    const Secret = "tsoding";
+    const Secret = "26";
 
     if(passcode === Secret){
         try{
