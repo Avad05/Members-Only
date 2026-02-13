@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
-    "scripts": {
-  "build": "npx @tailwindcss/cli -i ./public/assets/input.css -o ./public/assets/style.css && npm install",
-  "start": "node app.js"
-},
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./public/assets/input.css -o ./public/assets/style.css && npm install",
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +15,7 @@
     "@tailwindcss/cli": "^4.1.18",
     "bcrypt": "^6.0.0",
     "connect-flash": "^0.1.1",
+    "connect-pg-simple": "^10.0.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "ejs": "^4.0.1",
