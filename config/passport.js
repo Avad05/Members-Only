@@ -11,6 +11,7 @@ passport.use(
 
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
+        console.log('wherwehruh iuhWEURH');
       }
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
