@@ -2,13 +2,12 @@ require('dotenv').config();
 require('./config/passport')
 const express = require('express');
 const path = require('node:path');
-const passport = require('passport');
 const LocalStratergy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const router = require("./routes/home");
 const flash = require('connect-flash');
-
+const passport = require('./config/passport')
 const app = express();
 
 app.set("views", path.join(__dirname, 'views'));
@@ -25,6 +24,7 @@ app.use(session({
   }
 }));
 app.use(flash());
+app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));

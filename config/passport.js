@@ -7,12 +7,12 @@ passport.use(
   new LocalStratergy(async (username, password, done) => {
     try {
       const { rows } = await pool.query("SELECT * FROM userinfo WHERE username = $1", [username]);
-      const user = rows[0];
-      const match = await bcrypt.compare(password, user.password);
+      const user = rows[0];      
 
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
+      const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
@@ -38,3 +38,4 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+module.exports = passport;
