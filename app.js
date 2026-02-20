@@ -14,20 +14,20 @@ const app = express();
 app.set("views", path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
-// 2. Render Proxy Fix (CRITICAL for login persistence on Render)
+
 if (process.env.NODE_ENV === "production") {
     app.set('trust proxy', 1);
 }
 
-// 3. Body Parsers & Static Files
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-// 4. Session Configuration (Now using Postgres instead of Memory)
+
 app.use(session({ 
   store: new pgSession({
     pool: pool,
-    tableName: 'session' // Ensure you created this table via psql
+    tableName: 'session' 
   }),
   secret: process.env.SESSION_SECRET || "cats",
   resave: false, 
@@ -39,20 +39,20 @@ app.use(session({
   }
 }));
 
-// 5. Passport & Flash Initialization (MUST be after session)
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// 6. Global Variables Middleware (MUST be before routes)
+
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user; // Makes 'currentUser' available in all EJS
+  res.locals.currentUser = req.user; 
   res.locals.success_msg = req.flash('success');
   res.locals.error = req.flash('error');
   next();
 });
 
-// 7. Routes (MUST be last)
+
 app.use("/", router);
 
 const PORT = process.env.PORT || 8000;
